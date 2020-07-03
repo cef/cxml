@@ -15,7 +15,7 @@ module CXML
     def valid?
       return false unless Nokogiri::XML(@xml.to_xml).errors.empty?
 
-      item_out? && @order_request_header.ship_to? && @order_request_header.bill_to? && @order_request_header.contact? && @order_request_header.money?
+      item_out? && @order_request_header.valid?
     end
 
     def item_out?

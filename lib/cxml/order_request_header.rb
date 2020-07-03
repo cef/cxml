@@ -1,5 +1,7 @@
 module CXML
   class OrderRequestHeader
+    attr_accessor :id
+    attr_accessor :order_date
     attr_accessor :money
     attr_accessor :ship_to
     attr_accessor :bill_to
@@ -9,12 +11,15 @@ module CXML
       if data.kind_of?(Hash) && !data.empty?
         @id = data['orderID']
         @order_date = data['orderDate']
-        @money = CXML::Money.new(data['Total']['Money']) if data['Total']['Money']
+        @money = CXML::Money.new(data['Total']['Money']) if data['Total'] && data['Total']['Money']
         @ship_to = CXML::ShipTo.new(data['ShipTo']) if data['ShipTo']
         @bill_to = CXML::BillTo.new(data['BillTo']) if data['BillTo']
         @contact = CXML::Contact.new(data['Contact']) if data['Contact']
-        @items_out = []
       end
+    end
+
+    def valid?
+      ship_to? && bill_to? && contact? && money?
     end
 
     def money?
