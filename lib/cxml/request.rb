@@ -7,12 +7,14 @@ module CXML
   class Request
     attr_accessor :deployment_mode
     attr_accessor :punch_out_setup_request
+    attr_accessor :order_request
 
     def initialize(data={})
       if data.kind_of?(Hash) && !data.empty?
         @id = data['id']
         @deployment_mode = data['deploymentMode']
         @punch_out_setup_request = CXML::PunchOutSetupRequest.new(data['PunchOutSetupRequest'])
+        @order_request = CXML::OrderRequest.new(data['OrderRequest']) if data['OrderRequest'].present?
       end
     end
 
