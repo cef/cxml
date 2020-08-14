@@ -5,7 +5,7 @@ module CXML
 
     def initialize(data={})
       if data.kind_of?(Hash) && !data.empty?
-        @credential = CXML::Credential.new(data['Credential'])
+        @credential = generate_credentials([data['Credential']].flatten)
         @user_agent = data['UserAgent']
       end
     end
@@ -16,6 +16,20 @@ module CXML
         @credential.render(n)
       end
       node
+    end
+
+    private
+
+    # This can return two data types to provide backwards compatibility.
+    # Previous behaviour was always to receive and return one credential, thus
+    # this behaviour is unchanged. We can now also accept and return several
+    # credentials in an array.
+    def generate_credentials(credential_array)
+      credentials = []
+      credential_array.each do |single_credential_hash|
+        credentials << CXML::Credential.new(single_credential_hash)
+      end
+      credentials.count == 1 ? credentials.first : credentials
     end
   end
 end
