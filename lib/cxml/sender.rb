@@ -28,7 +28,7 @@ module CXML
       credentials = credential_array.map do |single_credential_hash|
         CXML::Credential.new(single_credential_hash)
       end
-      credentials.compact
+      credentials.compact!
       credentials.count == 1 ? credentials.first : credentials
     end
   end
