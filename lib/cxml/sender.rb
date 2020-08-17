@@ -25,10 +25,10 @@ module CXML
     # this behaviour is unchanged. We can now also accept and return several
     # credentials in an array.
     def generate_credentials(credential_array)
-      credentials = []
-      credential_array.each do |single_credential_hash|
-        credentials << CXML::Credential.new(single_credential_hash)
+      credentials = credential_array.map do |single_credential_hash|
+        CXML::Credential.new(single_credential_hash)
       end
+      credentials.compact
       credentials.count == 1 ? credentials.first : credentials
     end
   end
