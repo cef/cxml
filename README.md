@@ -6,8 +6,6 @@ Ruby implementation of cXML protocol.
 
 Procotol specifications could be found here [http://xml.cxml.org/current/cXMLUsersGuide.pdf](http://xml.cxml.org/current/cXMLUsersGuide.pdf)
 
-Replace the cxml_version with your CXML standard version of choice.
-
 ## Running Tests
 
 Install dependencies:
