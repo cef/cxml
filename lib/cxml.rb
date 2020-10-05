@@ -29,26 +29,17 @@ module CXML
   autoload :ItemDetail,                   'cxml/item_detail'
   autoload :Money,                        'cxml/money'
 
-  class << self
-    mattr_accessor :cxml_version
+  def self.parse(str)
+    CXML::Parser.new.parse(str)
+  end
 
-    def configure(&block)
-      yield self
-    end
+  def self.builder
+    xml_builder = Nokogiri::XML::Builder.new(:encoding => "UTF-8")
+    add_dtd!(xml_builder)
+    xml_builder
+  end
 
-    def parse(str)
-      CXML::Parser.new.parse(str)
-    end
-
-    def builder
-      xml_builder = Nokogiri::XML::Builder.new(:encoding => "UTF-8")
-      return xml_builder unless cxml_version.present?
-      add_dtd!(xml_builder)
-      xml_builder
-    end
-
-    def add_dtd!(xml_builder)
-      xml_builder.doc.create_internal_subset('cXML', nil, "http://xml.cxml.org/schemas/cXML/#{cxml_version}/cXML.dtd")
-    end
+  def self.add_dtd!(xml_builder)
+    xml_builder.doc.create_internal_subset('cXML', nil, "http://xml.cxml.org/schemas/cXML/#{CXML::Protocol.version}/cXML.dtd")
   end
 end

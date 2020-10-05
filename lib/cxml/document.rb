@@ -12,7 +12,7 @@ module CXML
 
     def initialize(data={})
       if data.kind_of?(Hash) && !data.empty?
-        @version = data['version']
+        @version = data['version'] || CXML::Protocol.version
         @payload_id = data['payloadID']
         @xml_lang = data['xml:lang'] if data['xml:lang']
 
@@ -35,7 +35,6 @@ module CXML
         if data['Message'] && data['Message']['PunchOutOrderMessage']
           @punch_out_order_message = CXML::PunchOutOrderMessage.new(data['Message']['PunchOutOrderMessage'])
         end
-
       end
     end
 
