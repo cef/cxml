@@ -37,7 +37,7 @@ module CXML
   # Build the initial XML object which will be used to add the CXML structure into.
   # @return [Nokogiri::XML::Builder] containing basic CXML specification
   def self.builder
-    xml_builder = Nokogiri::XML::Builder.new(:encoding => "UTF-8")
+    xml_builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8')
     add_dtd!(xml_builder)
     xml_builder
   end
