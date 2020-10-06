@@ -3,6 +3,7 @@ require 'cxml/errors'
 require 'time'
 require 'nokogiri'
 
+# Gem module starts by loading all of the classes containing the rest of the gem behaviour.
 module CXML
   autoload :BillTo,                       'cxml/bill_to'
   autoload :Contact,                      'cxml/contact'
@@ -33,7 +34,18 @@ module CXML
     CXML::Parser.new.parse(str)
   end
 
+  # Build the initial XML object which will be used to add the CXML structure into.
+  # @return [Nokogiri::XML::Builder] containing basic CXML specification
   def self.builder
-    Nokogiri::XML::Builder.new(:encoding => "UTF-8")
+    xml_builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8')
+    add_dtd!(xml_builder)
+    xml_builder
+  end
+
+  # Use Nokogiri's create_internal_subset method to add the DTD at this stage.
+  # This method destructively changes the builder it's run on.
+  # @return [Nokogiri::XML::DTD]
+  def self.add_dtd!(xml_builder)
+    xml_builder.doc.create_internal_subset('cXML', nil, "http://xml.cxml.org/schemas/cXML/#{CXML::Protocol.version}/cXML.dtd")
   end
 end
