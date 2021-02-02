@@ -14,10 +14,10 @@ module CXML
 
     def initialize(data={})
       if data.kind_of?(Hash) && !data.empty?
+        @unit_price = CXML::Money.new(data['UnitPrice']['Money'])
         @description = data['Description']
         @unit_of_measure = data['UnitOfMeasure']
         @unspsc = data['ClassificationUnspsc']
-        @unit_price = CXML::Money.new(data['UnitPrice']['Money'])
         @lead_time = data['LeadTime']
       end
     end
