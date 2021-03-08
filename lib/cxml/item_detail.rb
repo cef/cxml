@@ -24,9 +24,9 @@ module CXML
 
     def render(node)
       node.ItemDetail do
+        node.UnitPrice{unit_price.render(node)}
         node.Description(description, {'xml:lang' => 'en'})
         node.UnitOfMeasure(unit_of_measure)
-        node.UnitPrice{unit_price.render(node)}
         node.Classification(unspsc, {'domain' => 'UNSPSC'}) unless unspsc.blank?
         node.LeadTime(lead_time) if lead_time.present?
       end
