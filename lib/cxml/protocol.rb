@@ -1,6 +1,6 @@
 module CXML
   module Protocol
-    VERSION = '1.2.011'
+    VERSION = '1.2.054'
 
     REQUEST_ELEMENTS = [
       'OrderRequest',
