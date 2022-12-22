@@ -8,7 +8,7 @@ module CXML
     def initialize(data = {})
       return unless data.is_a?(Hash) || data.empty?
 
-      @credential = Credential.generate_credentials([data['Credential']].flatten)
+      @credential = Credential.generate_multiple([data['Credential']].flatten)
       @user_agent = data['UserAgent']
     end
 

@@ -24,7 +24,7 @@ module CXML
 
     def initialize(data={})
       if data.kind_of?(Hash) && !data.empty?
-        @from       = CXML::Credential.new(data['From']['Credential'])
+        @from       = CXML::From.new(data['From'])
         @to         = CXML::Credential.new(data['To']['Credential'])
         @sender     = CXML::Sender.new(data['Sender'])
       end

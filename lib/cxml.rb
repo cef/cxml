@@ -12,6 +12,7 @@ module CXML
   autoload :Header,                       'cxml/header'
   autoload :Credential,                   'cxml/credential'
   autoload :CredentialMac,                'cxml/credential_mac'
+  autoload :From,                         'cxml/from'
   autoload :Sender,                       'cxml/sender'
   autoload :ShipTo,                       'cxml/ship_to'
   autoload :Status,                       'cxml/status'
