@@ -57,8 +57,7 @@ module CXML
     end
 
     # @param credential_array [Array] An Array of Hashes containing the relevant data
-    #    (See the initialize method above for the fields that are sought from the
-    #     Hash - but all of them are optional.)
+    #    (See the initialize method above for the fields that are sought from the Hash).
     # @return [Array] Containing CXML::Credential objects
     def self.generate_multiple(credential_array)
       credentials = credential_array.map do |single_credential_hash|
