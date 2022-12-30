@@ -9,7 +9,7 @@ module CXML
     # This is called when ingesting a CXML object and when building one.
     # @param data [Hash] The From data for the CXML object that's being handled.
     def initialize(data = {})
-      return unless data.is_a?(Hash) || data.empty?
+      return if !data.is_a?(Hash) || data.empty?
 
       @credential = Credential.generate_multiple([data['Credential']].flatten)
       @user_agent = data['UserAgent']
@@ -20,7 +20,7 @@ module CXML
     # @return [Nokogiri::XML::Builder] The XML object, with added From attribute.
     def render(node)
       node.From do |n|
-        @credential.render(n)
+        @credential.each{ |c| c.render(n) }
         n.UserAgent(@user_agent)
       end
       node

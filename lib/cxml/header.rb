@@ -22,12 +22,12 @@ module CXML
     attr_accessor :to
     attr_accessor :sender
 
-    def initialize(data={})
-      if data.kind_of?(Hash) && !data.empty?
-        @from       = CXML::From.new(data['From'])
-        @to         = CXML::Credential.new(data['To']['Credential'])
-        @sender     = CXML::Sender.new(data['Sender'])
-      end
+    def initialize(data = {})
+      return if !data.is_a?(Hash) || data.empty?
+
+      @from       = CXML::From.new(data['From'])
+      @to         = CXML::Credential.new(data['To']['Credential'])
+      @sender     = CXML::Sender.new(data['Sender'])
     end
 
     def from?

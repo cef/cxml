@@ -40,7 +40,7 @@ module CXML
     # Initialize a new Credential instance
     # @param data [Hash] optional initial data
     def initialize(data = {})
-      return unless data.is_a?(Hash) || !data.empty?
+      return if !data.is_a?(Hash) || data.empty?
 
       @domain        = data['domain']
       @type          = data['type']
