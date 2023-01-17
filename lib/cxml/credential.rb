@@ -60,7 +60,7 @@ module CXML
     #    (See the initialize method above for the fields that are sought from the Hash).
     # @return [Array] Containing CXML::Credential objects
     def self.generate_multiple(credential_array)
-      credentials = credential_array.flat_map do |single_credential_hash|
+      credentials = credential_array.flatten.map do |single_credential_hash|
         CXML::Credential.new(single_credential_hash)
       end
       credentials.compact!
