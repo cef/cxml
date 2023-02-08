@@ -71,7 +71,7 @@ module CXML
     def render
       node = CXML.builder
       node.cXML(build_attributes) do |doc|
-        doc.Header { |n| @header.render(n, punch_out_order_message?) } if @header
+        doc.Header { |n| @header.render(n) } if @header
         @request.render(node) if @request
         @response.render(node) if @response
         @punch_out_order_message.render(node) if punch_out_order_message?
