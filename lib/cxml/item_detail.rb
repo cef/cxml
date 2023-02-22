@@ -10,9 +10,9 @@ module CXML
     attr_accessor :unit_of_measure
     attr_accessor :unit_price
     attr_accessor :unspsc
-    attr_accessor :lead_time
-    attr_accessor :manufacturer_name
     attr_accessor :manufacturer_part_id
+    attr_accessor :manufacturer_name
+    attr_accessor :lead_time
 
     def initialize(data={})
       if data.kind_of?(Hash) && !data.empty?
@@ -20,9 +20,9 @@ module CXML
         @description = data['Description']
         @unit_of_measure = data['UnitOfMeasure']
         @unspsc = data['ClassificationUnspsc']
-        @lead_time = data['LeadTime']
-        @manufacturer_name = data['ManufacturerName']
         @manufacturer_part_id = data['ManufacturerPartID']
+        @manufacturer_name = data['ManufacturerName']
+        @lead_time = data['LeadTime']
       end
     end
 
@@ -31,9 +31,9 @@ module CXML
         node.UnitPrice{unit_price.render(node)}
         node.Description(description, {'xml:lang' => 'en'})
         node.UnitOfMeasure(unit_of_measure)
-        node.ManufacturerName(manufacturer_name) if manufacturer_name.present?
-        node.ManufacturerPartID(manufacturer_part_id) if manufacturer_part_id.present?
         node.Classification(unspsc, {'domain' => 'UNSPSC'}) unless unspsc.blank?
+        node.ManufacturerPartID(manufacturer_part_id) if manufacturer_part_id.present?
+        node.ManufacturerName(manufacturer_name) if manufacturer_name.present?
         node.LeadTime(lead_time) if lead_time.present?
       end
     end
