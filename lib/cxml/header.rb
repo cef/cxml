@@ -26,7 +26,7 @@ module CXML
       return if !data.is_a?(Hash) || data.empty?
 
       @from       = CXML::From.new(data['From'])
-      @to         = CXML::Credential.new(data['To']['Credential'])
+      @to         = CXML::To.new(data['To'])
       @sender     = CXML::Sender.new(data['Sender'])
     end
 
@@ -42,18 +42,9 @@ module CXML
       !sender.nil?
     end
 
-    # Note: If an original request header is been used for a response, i.e. as part of a PunchOutOrderMessage response
-    #       then swap the to and from nodes
-    def render(node, swap_to_from=false)
-      if to? && from?
-        if swap_to_from
-          node.From   { |n| @to.render(n) }
-          node.To     { |n| @from.render(n) }
-        else
-          node.From   { |n| @from.render(n)  }
-          node.To     { |n| @to.render(n) }
-        end
-      end
+    def render(node)
+      @from.render(node) if from?
+      @to.render(node) if to?
       @sender.render(node) if sender?
       node
     end
