@@ -23,7 +23,7 @@ module CXML
     def render(node)
       node.PunchOutOrderMessageHeader('operationAllowed' => :create) do |n|
         n.Total { |t| money.render(node) if money? }
-        n.Shipping { |t| shipping.render(node) if shipping? }
+        shipping.render(node) if shipping?
       end
     end
 
