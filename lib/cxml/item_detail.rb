@@ -23,6 +23,7 @@ module CXML
         @manufacturer_part_id = data['ManufacturerPartID']
         @manufacturer_name = data['ManufacturerName']
         @lead_time = data['LeadTime']
+        @extrinsics_hash = data['Extrinsics']
       end
     end
 
@@ -35,8 +36,10 @@ module CXML
         node.ManufacturerPartID(manufacturer_part_id) if manufacturer_part_id.present?
         node.ManufacturerName(manufacturer_name) if manufacturer_name.present?
         node.LeadTime(lead_time) if lead_time.present?
+        @extrinsics_hash.each do |ext_name, ext_value|
+          node.Extrinsic(ext_name, ext_value)
+        end
       end
     end
-
   end
 end
