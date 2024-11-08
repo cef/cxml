@@ -13,6 +13,7 @@ module CXML
     attr_accessor :manufacturer_part_id
     attr_accessor :manufacturer_name
     attr_accessor :lead_time
+    attr_accessor :extrinsics
 
     def initialize(data={})
       if data.kind_of?(Hash) && !data.empty?
@@ -23,7 +24,7 @@ module CXML
         @manufacturer_part_id = data['ManufacturerPartID']
         @manufacturer_name = data['ManufacturerName']
         @lead_time = data['LeadTime']
-        @extrinsics_hash = data['Extrinsics']
+        @extrinsics = data['Extrinsics']
       end
     end
 
@@ -36,8 +37,8 @@ module CXML
         node.ManufacturerPartID(manufacturer_part_id) if manufacturer_part_id.present?
         node.ManufacturerName(manufacturer_name) if manufacturer_name.present?
         node.LeadTime(lead_time) if lead_time.present?
-        @extrinsics_hash.each do |ext_name, ext_value|
-          node.Extrinsic(ext_name, ext_value)
+        @extrinsics&.each do |extrinsic_name, extrinsic_value|
+          node.Extrinsic(extrinsic_value, 'name' => extrinsic_name)
         end
       end
     end
