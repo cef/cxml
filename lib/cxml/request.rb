@@ -14,7 +14,8 @@ module CXML
         @id = data['id']
         @deployment_mode = data['deploymentMode']
         @punch_out_setup_request = CXML::PunchOutSetupRequest.new(data['PunchOutSetupRequest'])
-        @order_request = CXML::OrderRequest.new(data['OrderRequest']) if data['OrderRequest'].present?
+        order_request_data = data['OrderRequest']
+        @order_request = CXML::OrderRequest.new(order_request_data) if order_request_data && !order_request_data.empty?
       end
     end
 
