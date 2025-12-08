@@ -1,6 +1,7 @@
 *.gem
 *.rbc
 *.swp
+.byebug_history
 *.tmproj
 *~
 .DS_Store
