@@ -1,7 +1,8 @@
 $:.unshift File.expand_path("../..", __FILE__)
 
+require 'byebug'
 require 'cxml'
-require 'ruby-debug'
+require 'simplecov'
 
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f}
 
