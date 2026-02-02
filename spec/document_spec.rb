@@ -107,6 +107,27 @@ describe CXML::Document do
       end
     end
 
+    context 'when the timestamp is received as RFC 1123 format' do
+      it 'accepts a RFC 1123 format datetime' do
+        data['timestamp'] = 'Tue, 13 Jan 2026 13:02:41 GMT'
+        expect(doc.timestamp).to be_a(Time)
+      end
+    end
+
+      context 'when the timestamp is received as RFC 2822 format' do
+        it 'accepts a RFC 2822 format datetime' do
+          data['timestamp'] = 'Tue, 13 Jan 2026 13:02:41 +0000'
+          expect(doc.timestamp).to be_a(Time)
+        end
+      end
+
+    context 'when the timestamp is received as SQL standard format' do
+      it 'accepts an SQL standard format datetime' do
+        data['timestamp'] = '2026-01-13 13:02:41'
+        expect(doc.timestamp).to be_a(Time)
+      end
+    end
+
     context 'when the timestamp is received as custom US format' do
       it 'accepts a custom US format datetime' do
         data['timestamp'] = '1/13/2026 1:02:41 PM'
