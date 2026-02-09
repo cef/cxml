@@ -133,6 +133,16 @@ describe CXML::Document do
         data['timestamp'] = '1/13/2026 1:02:41 PM'
         expect(doc.timestamp).to be_a(Time)
       end
+
+      it 'accepts a custom US format datetime' do
+        data['timestamp'] = '12/31/2028 11:59:59 PM'
+        expect(doc.timestamp).to be_a(Time)
+      end
+
+      it 'accepts a custom US format datetime even on leap years' do
+        data['timestamp'] = '2/29/2028 11:59:59 PM'
+        expect(doc.timestamp).to be_a(Time)
+      end
     end
   end
 
@@ -201,7 +211,7 @@ describe CXML::Document do
   describe '#to_iso8601' do
     let(:doc) { described_class.new }
     it 'converts a custom us datetime string to ISO 8601' do
-      expect(doc.to_iso8601('01/28/2026 09:15:30 AM')).to eq('2026-01-28T09:15:30+00:00')
+      expect(doc.to_iso8601('1/28/2026 09:15:30 AM')).to eq('2026-01-28T09:15:30+00:00')
     end
 
     it 'raises an ArgumentError for incorrect format' do
@@ -209,11 +219,11 @@ describe CXML::Document do
     end
 
     it 'raises an ArgumentError for impossible dates' do
-      expect { doc.to_iso8601('02/30/2026 10:00:00 AM') }.to raise_error(ArgumentError)
+      expect { doc.to_iso8601('2/30/2026 10:00:00 AM') }.to raise_error(ArgumentError)
     end
 
     it 'handles edge case dates/times like midnight on new year correctly' do
-      expect(doc.to_iso8601('01/01/2026 12:00:00 AM')).to eq('2026-01-01T00:00:00+00:00')
+      expect(doc.to_iso8601('1/1/2026 12:00:00 AM')).to eq('2026-01-01T00:00:00+00:00')
     end
   end
 end

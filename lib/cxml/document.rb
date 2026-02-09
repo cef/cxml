@@ -28,7 +28,7 @@ module CXML
             # and change it to ISO 8601.
             # e.g '1/13/2026 1:02:41 PM' => '2026-01-13T13:02:41'
           rescue ArgumentError => e
-            if e.message.include?('mon out of range')
+            if e.message.include?('mon out of range') || e.message.include?('argument out of range')
               @timestamp = Time.iso8601(to_iso8601(data['timestamp']))
             else
               raise
